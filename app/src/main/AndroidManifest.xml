@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GamesKeeper">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.singleGame.SingleGameActivity"></activity>
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

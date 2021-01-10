@@ -92,10 +92,8 @@ fun BottomNavigationView.setupWithNavController(
             val newlySelectedItemTag = graphIdToTagMap[item.itemId]
             if (selectedItemTag != newlySelectedItemTag) {
                 // Pop everything above the first fragment (the "fixed start destination")
-                fragmentManager.popBackStack(
-                    firstFragmentTag,
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE
-                )
+                fragmentManager.popBackStack(firstFragmentTag,
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                         as NavHostFragment
 
@@ -104,12 +102,11 @@ fun BottomNavigationView.setupWithNavController(
                     // Commit a transaction that cleans the back stack and adds the first fragment
                     // to it, creating the fixed started destination.
                     fragmentManager.beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.fragment_open_enter,
-                            R.anim.fragment_open_exit,
-                            R.anim.fragment_close_enter,
-                            R.anim.fragment_close_exit
-                        )
+                            .setCustomAnimations(
+                                    R.anim.fragment_open_enter,
+                                    R.anim.fragment_open_exit,
+                                    R.anim.fragment_close_enter,
+                                    R.anim.fragment_close_exit)
                         .attach(selectedFragment)
                         .setPrimaryNavigationFragment(selectedFragment)
                         .apply {
@@ -175,8 +172,7 @@ private fun BottomNavigationView.setupDeepLinks(
         )
         // Handle Intent
         if (navHostFragment.navController.handleDeepLink(intent)
-            && selectedItemId != navHostFragment.navController.graph.id
-        ) {
+                && selectedItemId != navHostFragment.navController.graph.id) {
             this.selectedItemId = navHostFragment.navController.graph.id
         }
     }

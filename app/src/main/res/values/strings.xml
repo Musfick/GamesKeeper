@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Games Keeper</string>
+    <string name="explore">Explore</string>
+    <string name="favorites">Favorites</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_title">Favorite 😍</string>
+    <string name="explore_title">Explore 🔥</string>
+    <string name="overview">Overview</string>
+    <string name="screenshots">Screenshots</string>
+    <string name="rating">Rating</string>
+    <string name="release">Release</string>
+    <string name="summery">Summery</string>
 </resources>
