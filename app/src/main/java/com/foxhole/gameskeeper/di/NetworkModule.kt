@@ -1,5 +1,6 @@
 package com.foxhole.gameskeeper.di
 
+import com.foxhole.gameskeeper.datasource.ExplorePagingSource
 import com.foxhole.gameskeeper.remote.api.RawgApi
 import com.foxhole.gameskeeper.utils.Constants.BASE_URL
 import dagger.Module
@@ -48,4 +49,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesRawgApi(retrofit: Retrofit): RawgApi = retrofit.create(RawgApi::class.java)
+
+    @Provides
+    @Singleton
+    fun providesExplorePagingSource(rawgApi: RawgApi) = ExplorePagingSource(rawgApi)
 }

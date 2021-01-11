@@ -10,4 +10,5 @@
     <string name="rating">Rating</string>
     <string name="release">Release</string>
     <string name="summery">Summery</string>
+    <string name="no_internet">No Internet</string>
 </resources>

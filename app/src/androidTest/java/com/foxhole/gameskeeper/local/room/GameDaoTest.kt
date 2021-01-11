@@ -7,7 +7,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.foxhole.gameskeeper.getOrAwaitValue
+import com.foxhole.gameskeeper.launchFragmentInHiltContainer
 import com.foxhole.gameskeeper.model.Game
+import com.foxhole.gameskeeper.ui.explore.ExploreFragment
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -53,7 +55,7 @@ class GameDaoTest {
 
     @Test
     fun insertGame() = runBlockingTest {
-        val game = Game("background_image", 120, "csgo", id = 1)
+        val game = Game("background_image", 120, "csgo", pk = 1)
         dao.insert(game)
 
         val allGames = dao.getGames().asLiveData().getOrAwaitValue()
@@ -61,13 +63,14 @@ class GameDaoTest {
         assertThat(allGames).contains(game)
     }
 
+
     @Test
     fun updateGame() = runBlockingTest {
-        val newGame = Game("background_image", 120, "csgo", id = 1)
+        val newGame = Game("background_image", 120, "csgo", pk = 1)
 
         dao.insert(newGame)
 
-        val updateGame = Game("background_image", 100, "Counter Strike", id = 1)
+        val updateGame = Game("background_image", 100, "Counter Strike", pk = 1)
 
         dao.update(updateGame)
 
@@ -78,7 +81,7 @@ class GameDaoTest {
 
     @Test
     fun deleteGame() = runBlockingTest {
-        val game = Game("background_image", 120, "csgo", id = 1)
+        val game = Game("background_image", 120, "csgo", pk = 1)
         dao.insert(game)
         dao.delete(game)
 
@@ -89,9 +92,9 @@ class GameDaoTest {
 
     @Test
     fun getAllGames() = runBlockingTest {
-        val game = Game("background_image", 120, "csgo", id = 1)
-        val game1 = Game("background_image", 121, "csgo1", id = 2)
-        val game2 = Game("background_image", 122, "csgo2", id = 3)
+        val game = Game("background_image", 120, "csgo", pk = 1)
+        val game1 = Game("background_image", 121, "csgo1", pk = 2)
+        val game2 = Game("background_image", 122, "csgo2", pk = 3)
 
         dao.insert(game)
         dao.insert(game1)

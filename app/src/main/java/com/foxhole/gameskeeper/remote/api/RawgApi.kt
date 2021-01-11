@@ -9,8 +9,8 @@ import retrofit2.http.Query
  */
 interface RawgApi {
 
-    @GET("/games")
-    fun getGamesPageByPage(
+    @GET("games")
+    suspend fun getGamesPageByPage(
         @Query("dates") date: String,
         @Query("ordering") order: String,
         @Query("page") page: Int
