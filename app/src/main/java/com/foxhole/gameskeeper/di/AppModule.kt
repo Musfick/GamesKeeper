@@ -5,6 +5,7 @@ import com.foxhole.gameskeeper.adapter.FavoriteGameAdapter
 import com.foxhole.gameskeeper.adapter.GameAdapter
 import com.foxhole.gameskeeper.datasource.ExplorePagingSource
 import com.foxhole.gameskeeper.local.room.GameDao
+import com.foxhole.gameskeeper.remote.api.RawgApi
 import com.foxhole.gameskeeper.repositories.main.MainRepo
 import com.foxhole.gameskeeper.repositories.main.MainRepoImpl
 import dagger.Module
@@ -25,8 +26,9 @@ object AppModule {
     @Provides
     @Singleton
     fun providesMainRepository(
-            gameDao: GameDao, explorePagingSource: ExplorePagingSource
-    ): MainRepo = MainRepoImpl(gameDao, explorePagingSource)
+            gameDao: GameDao,
+            rawgApi: RawgApi
+    ): MainRepo = MainRepoImpl(gameDao, rawgApi)
 
     @Provides
     @Singleton

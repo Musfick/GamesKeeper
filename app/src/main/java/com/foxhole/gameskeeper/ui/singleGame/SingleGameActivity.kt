@@ -126,13 +126,13 @@ class SingleGameActivity : BaseActivity<ActivitySingleGameBinding>() {
 
         binding.include.messageTv.text = message
 
-        binding.include.messageBg.animate().translationY(80f).duration = 200L
-        binding.include.messageTv.animate().translationY(80f).duration = 200L
+        binding.include.messageBg.animate().translationY(-80f).duration = 200L
+        binding.include.messageTv.animate().translationY(-80f).duration = 200L
 
         delay(2000L)
 
-        binding.include.messageBg.animate().translationY(-80f).duration = 500L
-        binding.include.messageTv.animate().translationY(-80f).duration = 500L
+        binding.include.messageBg.animate().translationY(80f).duration = 500L
+        binding.include.messageTv.animate().translationY(80f).duration = 500L
     }
 
 }

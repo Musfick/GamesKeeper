@@ -16,6 +16,7 @@ import com.foxhole.gameskeeper.ui.MainViewModel
 import com.foxhole.gameskeeper.ui.singleGame.SingleGameActivity
 import com.foxhole.gameskeeper.utils.Constants.GAME_VIEW_TYPE
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.observeOn
@@ -26,6 +27,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     lateinit var viewModel: MainViewModel
     lateinit var gameAdapter: GameAdapter
+    var isSwipeRefreshing = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,16 +44,25 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             }
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+
+        }
+
         lifecycleScope.launchWhenStarted {
             gameAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.swipeRefresh?.isRefreshing = loadStates.refresh is LoadState.Loading
+                binding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+
+                if (!binding.swipeRefresh.isRefreshing && isSwipeRefreshing) {
+                    showTostify("Refresh completed !")
+                    isSwipeRefreshing = false
+                }
 
                 val isError = loadStates.refresh is LoadState.Error
 
                 val snackbar = Snackbar.make(
-                    requireView(),
-                    "Network connection error",
-                    Snackbar.LENGTH_INDEFINITE
+                        requireView(),
+                        "Network connection error",
+                        Snackbar.LENGTH_INDEFINITE
                 )
                 snackbar.setAction("RETRY") {
                     gameAdapter.refresh()
@@ -67,6 +78,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         }
 
         binding.swipeRefresh.setOnRefreshListener {
+            isSwipeRefreshing = true
             gameAdapter.refresh()
         }
 
@@ -97,5 +109,18 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     }
 
     override fun setBinding(): FragmentExploreBinding =
-        FragmentExploreBinding.inflate(layoutInflater)
+            FragmentExploreBinding.inflate(layoutInflater)
+
+    suspend fun showTostify(message: String) {
+
+        binding.include.messageTv.text = message
+
+        binding.include.messageBg.animate().translationY(-80f).duration = 200L
+        binding.include.messageTv.animate().translationY(-80f).duration = 200L
+
+        delay(2000L)
+
+        binding.include.messageBg.animate().translationY(80f).duration = 500L
+        binding.include.messageTv.animate().translationY(80f).duration = 500L
+    }
 }
