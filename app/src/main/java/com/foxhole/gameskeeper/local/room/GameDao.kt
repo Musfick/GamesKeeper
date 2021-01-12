@@ -15,4 +15,7 @@ abstract class GameDao : BaseDao<Game> {
     //Get all games
     @Query("SELECT * FROM games_table")
     abstract fun getGames(): Flow<List<Game>>
+
+    @Query("DELETE FROM games_table WHERE id = :id")
+    abstract suspend fun deleteGameById(id: Int)
 }

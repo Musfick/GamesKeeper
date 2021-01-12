@@ -3,6 +3,7 @@ package com.foxhole.gameskeeper.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.foxhole.gameskeeper.R
+import com.foxhole.gameskeeper.adapter.FavoriteGameAdapter
 import com.foxhole.gameskeeper.adapter.GameAdapter
 import com.foxhole.gameskeeper.base.BaseActivity
 import com.foxhole.gameskeeper.databinding.ActivityMainBinding
@@ -14,6 +15,9 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     val mainViewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var favoriteGameAdapter: FavoriteGameAdapter
 
     @Inject
     lateinit var gameAdapter: GameAdapter

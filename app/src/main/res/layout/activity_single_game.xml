@@ -7,6 +7,7 @@
     tools:context=".ui.singleGame.SingleGameActivity">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
@@ -24,10 +25,8 @@
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                app:autoPlay="false"
                 app:showFullScreenButton="false"
-                app:showYouTubeButton="false"
-                app:videoId="LembwKDo1Dk" />
+                app:showYouTubeButton="false" />
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/tab_layout"
@@ -73,7 +72,15 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_favorite_24"
-        app:tint="@color/white" />
+        app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_item_toastify"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

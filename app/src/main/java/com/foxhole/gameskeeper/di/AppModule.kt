@@ -1,6 +1,7 @@
 package com.foxhole.gameskeeper.di
 
 import android.content.Context
+import com.foxhole.gameskeeper.adapter.FavoriteGameAdapter
 import com.foxhole.gameskeeper.adapter.GameAdapter
 import com.foxhole.gameskeeper.datasource.ExplorePagingSource
 import com.foxhole.gameskeeper.local.room.GameDao
@@ -24,12 +25,16 @@ object AppModule {
     @Provides
     @Singleton
     fun providesMainRepository(
-        gameDao: GameDao, explorePagingSource: ExplorePagingSource
+            gameDao: GameDao, explorePagingSource: ExplorePagingSource
     ): MainRepo = MainRepoImpl(gameDao, explorePagingSource)
 
     @Provides
     @Singleton
     fun providesGameAdapter(
-        @ApplicationContext app: Context
+            @ApplicationContext app: Context
     ): GameAdapter = GameAdapter(app)
+
+    @Provides
+    @Singleton
+    fun providesFavoriteGameAdapter() = FavoriteGameAdapter()
 }

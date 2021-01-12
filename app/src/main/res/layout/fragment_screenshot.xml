@@ -7,8 +7,13 @@
     tools:context=".ui.singleGame.screenshot.ScreenshotFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/screenshot_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingStart="0dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

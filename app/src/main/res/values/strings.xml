@@ -11,4 +11,6 @@
     <string name="release">Release</string>
     <string name="summery">Summery</string>
     <string name="no_internet">No Internet</string>
+    <string name="internet_connection_error">Internet connection error</string>
+    <string name="retry">Retry</string>
 </resources>

@@ -1,7 +1,10 @@
 package com.foxhole.gameskeeper.di
 
 import com.foxhole.gameskeeper.datasource.ExplorePagingSource
+import com.foxhole.gameskeeper.local.room.GameDao
 import com.foxhole.gameskeeper.remote.api.RawgApi
+import com.foxhole.gameskeeper.repositories.singleGame.SingleGameRepo
+import com.foxhole.gameskeeper.repositories.singleGame.SingleGameRepoImpl
 import com.foxhole.gameskeeper.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -53,4 +56,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesExplorePagingSource(rawgApi: RawgApi) = ExplorePagingSource(rawgApi)
+
+    @Provides
+    @Singleton
+    fun providesSingleGameRepo(rawgApi: RawgApi, gameDao: GameDao): SingleGameRepo = SingleGameRepoImpl(rawgApi, gameDao)
 }

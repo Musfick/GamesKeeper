@@ -8,6 +8,7 @@ import androidx.room.Room
 import com.foxhole.gameskeeper.local.room.AppDatabase
 import com.foxhole.gameskeeper.utils.Constants.APP_CACHE_DATA_STORE
 import com.foxhole.gameskeeper.utils.Constants.APP_DATABASE_NAME
+import com.foxhole.gameskeeper.utils.ResponseHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,6 +40,12 @@ object LocalModule {
     @Provides
     @Singleton
     fun providesDataStore(
-        @ApplicationContext app: Context
+            @ApplicationContext app: Context
     ): DataStore<Preferences> = app.createDataStore(APP_CACHE_DATA_STORE)
+
+    @Provides
+    @Singleton
+    fun providesResponseHandler() = ResponseHandler()
+
+
 }

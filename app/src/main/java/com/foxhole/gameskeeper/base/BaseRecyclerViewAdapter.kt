@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.foxhole.gameskeeper.R
+import com.foxhole.gameskeeper.databinding.LayoutItemScreenshotBinding
 
 
 /**
  * Created by Musfick Jamil on 4/29/2020$.
  */
-abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class BaseRecyclerViewAdapter<T, VB : ViewBinding> : RecyclerView.Adapter<BaseRecyclerViewAdapter.Companion.BaseViewHolder<VB>>() {
 
     private var items = mutableListOf<T>()
     private var lastPosition = -1
@@ -22,37 +24,23 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged()
     }
 
+    abstract fun setBinding(parent: ViewGroup): VB
+    abstract fun onBindData(holder: BaseViewHolder<VB>, item: T, position: Int)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<VB> {
+        return BaseViewHolder(setBinding(parent))
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder<VB>, position: Int) {
+        onBindData(holder, items[position], position)
+    }
+
     override fun getItemCount(): Int = items.size
 
 
-    abstract fun getLayoutId(): Int
-    abstract fun getContext(): Context
-
-    abstract fun setViewHolder(view: View, viewType: Int): RecyclerView.ViewHolder
-
-    abstract fun onBindData(holder: RecyclerView.ViewHolder?, item: T, position: Int)
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(getLayoutId(), parent, false)
-        return setViewHolder(view, viewType)
+    companion object {
+        class BaseViewHolder<VB : ViewBinding>(val binding: VB) :
+                RecyclerView.ViewHolder(binding.root)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position != items.size) {
-            onBindData(holder, items[position], position)
-            setAnimation(holder, position)
-        }
-
-
-    }
-
-    private fun setAnimation(holder: RecyclerView.ViewHolder, position: Int) {
-        if (position > lastPosition) {
-            val animation = AnimationUtils.loadAnimation(getContext(), R.anim.item_anim)
-            holder.itemView.startAnimation(animation)
-            lastPosition = position;
-        }
-
-    }
 }

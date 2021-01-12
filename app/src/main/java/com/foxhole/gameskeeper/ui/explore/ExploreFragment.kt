@@ -34,7 +34,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
         gameAdapter = (requireActivity() as MainActivity).gameAdapter
         viewModel = (requireActivity() as MainActivity).mainViewModel
 
-        intView()
+        initView()
 
         lifecycleScope.launchWhenCreated {
             viewModel.explore.collectLatest {
@@ -66,6 +66,10 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
             }
         }
 
+        binding.swipeRefresh.setOnRefreshListener {
+            gameAdapter.refresh()
+        }
+
         gameAdapter.onItemClick = { game ->
             Intent(requireActivity(), SingleGameActivity::class.java).also {
                 it.putExtra("game", game)
@@ -75,7 +79,7 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
     }
 
-    private fun intView() {
+    private fun initView() {
         val gridLayoutManager = GridLayoutManager(activity, 2)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
