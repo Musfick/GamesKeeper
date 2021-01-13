@@ -1,6 +1,7 @@
 package com.foxhole.gameskeeper.ui.explore
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
@@ -50,29 +51,22 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
         lifecycleScope.launchWhenStarted {
             gameAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
-
-                if (!binding.swipeRefresh.isRefreshing && isSwipeRefreshing) {
-                    showTostify("Refresh completed !")
-                    isSwipeRefreshing = false
-                }
 
                 val isError = loadStates.refresh is LoadState.Error
 
-                val snackbar = Snackbar.make(
-                        requireView(),
-                        "Network connection error",
-                        Snackbar.LENGTH_INDEFINITE
-                )
-                snackbar.setAction("RETRY") {
-                    gameAdapter.refresh()
+                if (isError) {
+                    showTostify("No Internet !", "#d9534f", false)
+                } else {
+                    dismissTostify()
                 }
 
-                if (isError) {
-                    snackbar.show()
-                } else {
-                    snackbar.dismiss()
+                binding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+
+                if (!binding.swipeRefresh.isRefreshing && isSwipeRefreshing && !isError) {
+                    showTostify("Refresh completed !", "#4BB543", true)
+                    isSwipeRefreshing = false
                 }
+
 
             }
         }
@@ -111,8 +105,9 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
     override fun setBinding(): FragmentExploreBinding =
             FragmentExploreBinding.inflate(layoutInflater)
 
-    suspend fun showTostify(message: String) {
+    suspend fun showTostify(message: String, color: String, autoDismiss: Boolean) {
 
+        binding.include.messageBg.setBackgroundColor(Color.parseColor(color))
         binding.include.messageTv.text = message
 
         binding.include.messageBg.animate().translationY(-80f).duration = 200L
@@ -120,7 +115,17 @@ class ExploreFragment : BaseFragment<FragmentExploreBinding>() {
 
         delay(2000L)
 
-        binding.include.messageBg.animate().translationY(80f).duration = 500L
-        binding.include.messageTv.animate().translationY(80f).duration = 500L
+        if (autoDismiss) {
+            binding.include.messageBg.animate().translationY(80f).duration = 500L
+            binding.include.messageTv.animate().translationY(80f).duration = 500L
+        }
+
     }
+
+    fun dismissTostify() {
+        //Clear animation
+        binding.include.messageBg.animate().translationY(0f)
+        binding.include.messageTv.animate().translationY(0f)
+    }
+
 }

@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.room.Room
+import com.foxhole.gameskeeper.local.datastore.CachePreferences
+import com.foxhole.gameskeeper.local.datastore.CachePreferencesImpl
 import com.foxhole.gameskeeper.local.room.AppDatabase
 import com.foxhole.gameskeeper.utils.Constants.APP_CACHE_DATA_STORE
 import com.foxhole.gameskeeper.utils.Constants.APP_DATABASE_NAME
@@ -46,6 +48,10 @@ object LocalModule {
     @Provides
     @Singleton
     fun providesResponseHandler() = ResponseHandler()
+
+    @Provides
+    @Singleton
+    fun providesCachePreference(dataStore: DataStore<Preferences>): CachePreferences = CachePreferencesImpl(dataStore)
 
 
 }

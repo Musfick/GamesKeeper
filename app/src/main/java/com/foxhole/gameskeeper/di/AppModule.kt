@@ -4,6 +4,7 @@ import android.content.Context
 import com.foxhole.gameskeeper.adapter.FavoriteGameAdapter
 import com.foxhole.gameskeeper.adapter.GameAdapter
 import com.foxhole.gameskeeper.datasource.ExplorePagingSource
+import com.foxhole.gameskeeper.local.datastore.CachePreferences
 import com.foxhole.gameskeeper.local.room.GameDao
 import com.foxhole.gameskeeper.remote.api.RawgApi
 import com.foxhole.gameskeeper.repositories.main.MainRepo
@@ -27,8 +28,9 @@ object AppModule {
     @Singleton
     fun providesMainRepository(
             gameDao: GameDao,
-            rawgApi: RawgApi
-    ): MainRepo = MainRepoImpl(gameDao, rawgApi)
+            rawgApi: RawgApi,
+            cachePreferences: CachePreferences
+    ): MainRepo = MainRepoImpl(gameDao, rawgApi, cachePreferences)
 
     @Provides
     @Singleton

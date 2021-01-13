@@ -25,6 +25,7 @@
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
+                app:autoPlay="false"
                 app:showFullScreenButton="false"
                 app:showYouTubeButton="false" />
 

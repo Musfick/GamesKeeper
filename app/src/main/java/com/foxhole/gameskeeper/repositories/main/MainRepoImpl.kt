@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.foxhole.gameskeeper.datasource.ExplorePagingSource
+import com.foxhole.gameskeeper.local.datastore.CachePreferences
 import com.foxhole.gameskeeper.local.room.GameDao
 import com.foxhole.gameskeeper.model.Game
 import com.foxhole.gameskeeper.remote.api.RawgApi
@@ -14,13 +15,14 @@ import kotlinx.coroutines.flow.Flow
  */
 class MainRepoImpl(
         private val gameDao: GameDao,
-        private val rawgApi: RawgApi
+        private val rawgApi: RawgApi,
+        private val cachePreferences: CachePreferences
 ) : MainRepo {
     override fun getAllFavoriteGames(): Flow<List<Game>> = gameDao.getGames()
 
     override fun getGamesFromRemote(pageSize: Int): Flow<PagingData<Game>> = Pager(
         PagingConfig(pageSize)
     ) {
-        ExplorePagingSource(rawgApi)
+        ExplorePagingSource(rawgApi, cachePreferences)
     }.flow
 }

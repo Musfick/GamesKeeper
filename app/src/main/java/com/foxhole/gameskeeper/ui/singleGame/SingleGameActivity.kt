@@ -106,6 +106,9 @@ class SingleGameActivity : BaseActivity<ActivitySingleGameBinding>() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     it.video?.let { clip ->
                         youTubePlayer.loadVideo(clip.videoid, 0F)
+
+                        ///UnMute for sound
+                        youTubePlayer.mute()
                     } ?: youTubePlayer.loadVideo("A67ZkAd1wmI", 0F)
                 }
             })

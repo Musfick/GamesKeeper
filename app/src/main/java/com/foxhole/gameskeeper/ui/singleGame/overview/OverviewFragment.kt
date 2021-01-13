@@ -17,6 +17,7 @@ import com.foxhole.gameskeeper.utils.Resource
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import org.jsoup.Jsoup
 import timber.log.Timber
 
 class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
@@ -62,7 +63,7 @@ class OverviewFragment : BaseFragment<FragmentOverviewBinding>() {
     private fun updateUI(game: Game?) {
         game?.let {
             binding.posterImageView.load(manipulateUrl(it.backgroundImage))
-            binding.summeryTextView.text = it.description
+            binding.summeryTextView.text = Jsoup.parse(it.description).text()
             binding.ratingTextView.text = it.rating.toString()
             binding.releaseTextView.text = it.released
         }

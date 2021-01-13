@@ -1,6 +1,7 @@
 package com.foxhole.gameskeeper.di
 
 import com.foxhole.gameskeeper.datasource.ExplorePagingSource
+import com.foxhole.gameskeeper.local.datastore.CachePreferences
 import com.foxhole.gameskeeper.local.room.GameDao
 import com.foxhole.gameskeeper.remote.api.RawgApi
 import com.foxhole.gameskeeper.repositories.singleGame.SingleGameRepo
@@ -53,9 +54,6 @@ object NetworkModule {
     @Singleton
     fun providesRawgApi(retrofit: Retrofit): RawgApi = retrofit.create(RawgApi::class.java)
 
-    @Provides
-    @Singleton
-    fun providesExplorePagingSource(rawgApi: RawgApi) = ExplorePagingSource(rawgApi)
 
     @Provides
     @Singleton
