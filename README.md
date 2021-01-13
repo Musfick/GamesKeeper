@@ -7,3 +7,6 @@
 <p align="center">
 Min Api Level : 21 Supports Over 87% Devices
 <p/>
+<p align="center">
+<img src="cover.jpg"/>
+</p>
