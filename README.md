@@ -54,7 +54,7 @@ Go to the [Explore RAWG Video Games Database API](https://rawg.io/apidocs) to ex
 ## Architecture
 - MVVM Architecture (View - DataBinding - ViewModel - Model)
 - Repository pattern
-<img src="mvvm-flow.png"/>
+<img src="flow.png"/>
 
 ## MAD Score
 <img src="summary.png"/>
